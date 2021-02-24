@@ -1,49 +1,46 @@
 import React, {Component, useState} from "react";
 import '../styles/App.css';
-import data from '../data';
+import slides from '../data';
 const App = () => {
-
-  const [slideNo,setSlideNo] = useState(0);
-  const [prevButton, setPrevButton] = useState(true);
-  const [nextButton, setNextButton] = useState(false);
-  const [restartButton, setRestartButton] = useState(true);
-  
+  const [count,setCount] = useState(0);
+  const [next, setNext] = useState(false);
+  const [prev, setPrev] = useState(true);
+  const [restart, setRestart] = useState(true);
   const handleNext = () =>{
-      setPrevButton(false);
-      setRestartButton(false);
-      
-    if(slideNo<5){
-      setSlideNo(slideNo+1);
-    }if(slideNo==3){
-      setNextButton(true);
+      setPrev(false);
+      setRestart(false);
+    if(count<5){
+      setCount(count+1);
+    }if(count==3){
+      setNext(true);
     }
   }
   const handlePrev = () =>{
-    if(slideNo>0)
-      setSlideNo(slideNo-1);
-    if(slideNo==1){
-      setPrevButton(true);
-      setRestartButton(true);
+    if(count>0)
+      setCount(count-1);
+    if(count==1){
+      setPrev(true);
+      setRestart(true);
     }
-    setNextButton(false);
+    setNext(false);
     
   }
   const handleRestart = () =>{
-    setSlideNo(0);
-    setNextButton(false);
-    setPrevButton(true);
-    setRestartButton(true);
+    setCount(0);
+    setNext(false);
+    setPrev(true);
+    setRestart(true);
   }
   return (
     <>
-    <div id="box">
-      <h1 data-testid="title">{data[slideNo].title}</h1>
-      <p data-testid="text">{data[slideNo].text}</p>
-    </div>
-    <div className="btn">
-          <button disabled={prevButton} data-testid="button-prevButton" onClick={handlePrev}>Prev</button>
-          <button disabled={restartButton} data-testid="button-restartButton" onClick={handleRestart}>Restart</button>
-          <button disabled={nextButton} data-testid="button-nextButton" onClick={handleNext}>Next</button>
+    <div id="slide">
+      <h1 data-testid="title">{slides[count].title}</h1>
+      <p data-testid="text">{slides[count].text}</p>
+      </div>
+      <div>
+          <button disabled={prev} data-testid="button-prev" onClick={handlePrev}>Prev</button>
+          <button disabled={restart} data-testid="button-restart" onClick={handleRestart}>Restart</button>
+          <button disabled={next} data-testid="button-next" onClick={handleNext}>Next</button>
       </div>
     </>
   )
@@ -51,3 +48,4 @@ const App = () => {
 
 
 export default App;
+
